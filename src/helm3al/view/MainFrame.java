@@ -74,6 +74,11 @@ public class MainFrame extends javax.swing.JFrame {
         btnTransaksi.setText("Transaksi");
         btnTransaksi.setMaximumSize(new java.awt.Dimension(170, 45));
         btnTransaksi.setMinimumSize(new java.awt.Dimension(160, 40));
+        btnTransaksi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTransaksiActionPerformed(evt);
+            }
+        });
 
         btnAbout.setText("About Us");
         btnAbout.setMaximumSize(new java.awt.Dimension(170, 45));
@@ -181,6 +186,12 @@ public class MainFrame extends javax.swing.JFrame {
         SupplierFrame supplierFrame = new SupplierFrame();
         supplierFrame.setVisible(true);
     }//GEN-LAST:event_btnSupplierActionPerformed
+
+    private void btnTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransaksiActionPerformed
+        // TODO add your handling code here:
+        TransaksiFrame transaksiFrame = new TransaksiFrame(userLogin);
+        transaksiFrame.setVisible(true);
+    }//GEN-LAST:event_btnTransaksiActionPerformed
 
     /**
      * @param args the command line arguments
