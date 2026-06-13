@@ -96,6 +96,11 @@ public class MainFrame extends javax.swing.JFrame {
         btnReport.setText("Report Transaksi");
         btnReport.setMaximumSize(new java.awt.Dimension(170, 45));
         btnReport.setMinimumSize(new java.awt.Dimension(160, 40));
+        btnReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportActionPerformed(evt);
+            }
+        });
 
         btnLogout.setText("Logout");
         btnLogout.setMaximumSize(new java.awt.Dimension(170, 45));
@@ -192,6 +197,12 @@ public class MainFrame extends javax.swing.JFrame {
         TransaksiFrame transaksiFrame = new TransaksiFrame(userLogin);
         transaksiFrame.setVisible(true);
     }//GEN-LAST:event_btnTransaksiActionPerformed
+
+    private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
+        // TODO add your handling code here:
+        ReportFrame reportFrame = new ReportFrame();
+        reportFrame.setVisible(true);
+    }//GEN-LAST:event_btnReportActionPerformed
 
     /**
      * @param args the command line arguments

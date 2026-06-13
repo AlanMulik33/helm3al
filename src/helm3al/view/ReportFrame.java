@@ -5,15 +5,100 @@
 
 package helm3al.view;
 
-/**
- *
- * @author ASUS
- */
+import helm3al.dao.TransaksiDAO;
+import helm3al.model.Transaksi;
+import java.text.DecimalFormat;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 public class ReportFrame extends javax.swing.JFrame {
 
+    private TransaksiDAO transaksiDAO = new TransaksiDAO();
+    private DecimalFormat formatRupiah = new DecimalFormat("#,###");
     /** Creates new form ReportFrame */
     public ReportFrame() {
         initComponents();
+        setLocationRelativeTo(null);
+        isiComboBox();
+        resetReport();
+    }
+    
+    private void isiComboBox() {
+        cmbJenisReport.removeAllItems();
+        cmbJenisReport.addItem("Bulanan");
+        cmbJenisReport.addItem("Tahunan");
+
+        cmbBulan.removeAllItems();
+        cmbBulan.addItem("Januari");
+        cmbBulan.addItem("Februari");
+        cmbBulan.addItem("Maret");
+        cmbBulan.addItem("April");
+        cmbBulan.addItem("Mei");
+        cmbBulan.addItem("Juni");
+        cmbBulan.addItem("Juli");
+        cmbBulan.addItem("Agustus");
+        cmbBulan.addItem("September");
+        cmbBulan.addItem("Oktober");
+        cmbBulan.addItem("November");
+        cmbBulan.addItem("Desember");
+    }
+    
+    private void tampilReportKeTabel(List<Transaksi> listTransaksi) {
+        DefaultTableModel model = new DefaultTableModel();
+
+        model.addColumn("Kode Transaksi");
+        model.addColumn("Tanggal");
+        model.addColumn("Produk");
+        model.addColumn("Jumlah");
+        model.addColumn("Harga");
+        model.addColumn("Total");
+        model.addColumn("Pelanggan");
+
+        int totalTransaksi = listTransaksi.size();
+        int totalItem = 0;
+        int totalPendapatan = 0;
+
+        for (Transaksi transaksi : listTransaksi) {
+            model.addRow(new Object[]{
+                transaksi.getKodeTransaksi(),
+                transaksi.getTanggalTransaksi(),
+                transaksi.getNamaProduk(),
+                transaksi.getJumlah(),
+                "Rp " + formatRupiah.format(transaksi.getHarga()),
+                "Rp " + formatRupiah.format(transaksi.getTotal()),
+                transaksi.getNamaPelanggan()
+            });
+
+            totalItem += transaksi.getJumlah();
+            totalPendapatan += transaksi.getTotal();
+        }
+
+        tblReport.setModel(model);
+
+        lblTotalTransaksi.setText(String.valueOf(totalTransaksi));
+        lblTotalItem.setText(String.valueOf(totalItem));
+        lblTotalPendapatan.setText("Rp " + formatRupiah.format(totalPendapatan));
+    }
+    
+    private void resetReport() {
+        txtTahun.setText("");
+        cmbJenisReport.setSelectedIndex(0);
+        cmbBulan.setSelectedIndex(0);
+
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Kode Transaksi");
+        model.addColumn("Tanggal");
+        model.addColumn("Produk");
+        model.addColumn("Jumlah");
+        model.addColumn("Harga");
+        model.addColumn("Total");
+        model.addColumn("Pelanggan");
+
+        tblReport.setModel(model);
+
+        lblTotalTransaksi.setText("0");
+        lblTotalItem.setText("0");
+        lblTotalPendapatan.setText("Rp 0");
     }
 
     /** This method is called from within the constructor to
@@ -25,21 +110,228 @@ public class ReportFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        cmbJenisReport = new javax.swing.JComboBox<>();
+        cmbBulan = new javax.swing.JComboBox<>();
+        txtTahun = new javax.swing.JTextField();
+        btnTampilkan = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        lblTotalTransaksi = new javax.swing.JLabel();
+        lblTotalItem = new javax.swing.JLabel();
+        lblTotalPendapatan = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblReport = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("Report Transaksi");
+
+        jLabel2.setText("Jenis Report");
+
+        jLabel3.setText("Bulan");
+
+        jLabel4.setText("Tahun");
+
+        cmbJenisReport.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbJenisReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbJenisReportActionPerformed(evt);
+            }
+        });
+
+        cmbBulan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnTampilkan.setText("Tampilkan Report");
+        btnTampilkan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTampilkanActionPerformed(evt);
+            }
+        });
+
+        btnReset.setText("Reset");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Total Transaksi");
+
+        jLabel6.setText("Total Item Penjualan");
+
+        jLabel7.setText("Total Pendapatan");
+
+        jLabel8.setText(":");
+
+        jLabel9.setText(":");
+
+        jLabel10.setText(":");
+
+        tblReport.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblReport);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtTahun, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(cmbBulan, javax.swing.GroupLayout.Alignment.LEADING, 0, 163, Short.MAX_VALUE)
+                                        .addComponent(cmbJenisReport, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnTampilkan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblTotalPendapatan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnReset)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblTotalItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblTotalTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cmbJenisReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(cmbBulan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtTahun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTampilkan)
+                    .addComponent(btnReset))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel8))
+                    .addComponent(lblTotalTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel9)
+                        .addComponent(jLabel6))
+                    .addComponent(lblTotalItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel7)
+                    .addComponent(lblTotalPendapatan, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnTampilkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTampilkanActionPerformed
+        // TODO add your handling code here:
+        if (txtTahun.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tahun wajib diisi!");
+            return;
+        }
+
+        int tahun;
+
+        try {
+            tahun = Integer.parseInt(txtTahun.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Tahun harus berupa angka!");
+            return;
+        }
+
+        String jenisReport = cmbJenisReport.getSelectedItem().toString();
+
+        List<Transaksi> hasilReport;
+
+        if (jenisReport.equals("Bulanan")) {
+            int bulan = cmbBulan.getSelectedIndex() + 1;
+            hasilReport = transaksiDAO.getLaporanBulanan(bulan, tahun);
+        } else {
+            hasilReport = transaksiDAO.getLaporanTahunan(tahun);
+        }
+
+        tampilReportKeTabel(hasilReport);
+
+        if (hasilReport.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tidak ada transaksi pada periode tersebut.");
+        }
+    }//GEN-LAST:event_btnTampilkanActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        // TODO add your handling code here:
+        resetReport();
+    }//GEN-LAST:event_btnResetActionPerformed
+
+    private void cmbJenisReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJenisReportActionPerformed
+        // TODO add your handling code here:
+        String jenisReport = cmbJenisReport.getSelectedItem().toString();
+
+        if (jenisReport.equals("Tahunan")) {
+            cmbBulan.setEnabled(false);
+        } else {
+            cmbBulan.setEnabled(true);
+        }
+    }//GEN-LAST:event_cmbJenisReportActionPerformed
 
     /**
      * @param args the command line arguments
@@ -77,6 +369,26 @@ public class ReportFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnReset;
+    private javax.swing.JButton btnTampilkan;
+    private javax.swing.JComboBox<String> cmbBulan;
+    private javax.swing.JComboBox<String> cmbJenisReport;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblTotalItem;
+    private javax.swing.JLabel lblTotalPendapatan;
+    private javax.swing.JLabel lblTotalTransaksi;
+    private javax.swing.JTable tblReport;
+    private javax.swing.JTextField txtTahun;
     // End of variables declaration//GEN-END:variables
 
 }

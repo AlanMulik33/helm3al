@@ -103,6 +103,88 @@ public class TransaksiDAO {
 
         return listTransaksi;
     }
+    
+    public List<Transaksi> getLaporanBulanan(int bulan, int tahun) {
+        List<Transaksi> listTransaksi = new ArrayList<>();
+
+        String sql = "SELECT t.*, p.nama_produk "
+                + "FROM transaksi t "
+                + "JOIN produk p ON t.id_produk = p.id_produk "
+                + "WHERE MONTH(t.tanggal_transaksi) = ? "
+                + "AND YEAR(t.tanggal_transaksi) = ? "
+                + "ORDER BY t.tanggal_transaksi ASC";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, bulan);
+            ps.setInt(2, tahun);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Transaksi transaksi = new Transaksi();
+
+                transaksi.setIdTransaksi(rs.getInt("id_transaksi"));
+                transaksi.setKodeTransaksi(rs.getString("kode_transaksi"));
+                transaksi.setTanggalTransaksi(rs.getDate("tanggal_transaksi"));
+                transaksi.setIdProduk(rs.getInt("id_produk"));
+                transaksi.setNamaProduk(rs.getString("nama_produk"));
+                transaksi.setJumlah(rs.getInt("jumlah"));
+                transaksi.setHarga(rs.getInt("harga"));
+                transaksi.setTotal(rs.getInt("total"));
+                transaksi.setNamaPelanggan(rs.getString("nama_pelanggan"));
+                transaksi.setIdUser(rs.getInt("id_user"));
+
+                listTransaksi.add(transaksi);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Gagal mengambil laporan bulanan");
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        return listTransaksi;
+    }
+    
+    public List<Transaksi> getLaporanTahunan(int tahun) {
+        List<Transaksi> listTransaksi = new ArrayList<>();
+
+        String sql = "SELECT t.*, p.nama_produk "
+                + "FROM transaksi t "
+                + "JOIN produk p ON t.id_produk = p.id_produk "
+                + "WHERE YEAR(t.tanggal_transaksi) = ? "
+                + "ORDER BY t.tanggal_transaksi ASC";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, tahun);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Transaksi transaksi = new Transaksi();
+
+                transaksi.setIdTransaksi(rs.getInt("id_transaksi"));
+                transaksi.setKodeTransaksi(rs.getString("kode_transaksi"));
+                transaksi.setTanggalTransaksi(rs.getDate("tanggal_transaksi"));
+                transaksi.setIdProduk(rs.getInt("id_produk"));
+                transaksi.setNamaProduk(rs.getString("nama_produk"));
+                transaksi.setJumlah(rs.getInt("jumlah"));
+                transaksi.setHarga(rs.getInt("harga"));
+                transaksi.setTotal(rs.getInt("total"));
+                transaksi.setNamaPelanggan(rs.getString("nama_pelanggan"));
+                transaksi.setIdUser(rs.getInt("id_user"));
+
+                listTransaksi.add(transaksi);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Gagal mengambil laporan tahunan");
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        return listTransaksi;
+    }
 
     public String generateKodeTransaksi() {
         String kode = "TRX001";
