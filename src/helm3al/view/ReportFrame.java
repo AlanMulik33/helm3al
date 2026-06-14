@@ -41,6 +41,10 @@ public class ReportFrame extends javax.swing.JFrame {
         cmbBulan.addItem("Oktober");
         cmbBulan.addItem("November");
         cmbBulan.addItem("Desember");
+        
+        cmbJenisReport.setSelectedIndex(0);
+        cmbBulan.setSelectedIndex(0);
+        cmbBulan.setEnabled(true);
     }
     
     private void tampilReportKeTabel(List<Transaksi> listTransaksi) {
@@ -324,7 +328,13 @@ public class ReportFrame extends javax.swing.JFrame {
 
     private void cmbJenisReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJenisReportActionPerformed
         // TODO add your handling code here:
-        String jenisReport = cmbJenisReport.getSelectedItem().toString();
+        Object selectedItem = cmbJenisReport.getSelectedItem();
+
+        if (selectedItem == null) {
+            return;
+        }
+
+        String jenisReport = selectedItem.toString();
 
         if (jenisReport.equals("Tahunan")) {
             cmbBulan.setEnabled(false);

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/view/SupplierFrame.java</file>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/TestSupplierDAO.java</file>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/view/LoginFrame.java</file>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/view/ProdukFrame.java</file>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/dao/UserDAO.java</file>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/view/TransaksiFrame.java</file>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/dao/SupplierDAO.java</file>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/TestTransaksiDAO.java</file>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/Main.java</file>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/model/User.java</file>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/TestProdukDAO.java</file>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/dao/TransaksiDAO.java</file>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/view/ReportFrame.java</file>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/config/Koneksi.java</file>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/view/MainFrame.java</file>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/model/Produk.java</file>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/model/Supplier.java</file>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/dao/ProdukDAO.java</file>
+            <file>file:/C:/Project/Helm3AL/src/helm3al/model/Transaksi.java</file>
+        </group>
+    </open-files>
+</project-private>
