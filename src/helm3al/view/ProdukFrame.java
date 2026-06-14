@@ -19,6 +19,7 @@ public class ProdukFrame extends javax.swing.JFrame {
     public ProdukFrame() {
         initComponents();
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         isiComboBox();
         tampilData();
         kosongkanForm();

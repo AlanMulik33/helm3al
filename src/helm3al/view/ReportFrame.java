@@ -19,6 +19,7 @@ public class ReportFrame extends javax.swing.JFrame {
     public ReportFrame() {
         initComponents();
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         isiComboBox();
         resetReport();
     }

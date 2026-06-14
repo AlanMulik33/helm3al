@@ -30,12 +30,14 @@ public class TransaksiFrame extends javax.swing.JFrame {
     public TransaksiFrame() {
         initComponents();
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setupAwal();
     }
 
     public TransaksiFrame(User userLogin) {
         initComponents();
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         this.userLogin = userLogin;
         setupAwal();
     }

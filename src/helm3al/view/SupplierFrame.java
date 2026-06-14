@@ -19,6 +19,7 @@ public class SupplierFrame extends javax.swing.JFrame {
     public SupplierFrame() {
         initComponents();
         setLocationRelativeTo(null);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         tampilData();
         kosongkanForm();
     }

@@ -30,8 +30,47 @@ public class MainFrame extends javax.swing.JFrame {
         lblUserLogin.setText(
             "Login sebagai: " + userLogin.getNamaLengkap() + " (" + userLogin.getRole() + ")"
         );
-    }
 
+        aturHakAkses();
+    }
+    
+    private void aturHakAkses() {
+        if (userLogin == null) {
+            return;
+        }
+
+        String role = userLogin.getRole();
+
+        if (role.equalsIgnoreCase("Admin")) {
+            btnProduk.setEnabled(true);
+            btnSupplier.setEnabled(true);
+            btnTransaksi.setEnabled(true);
+            btnReport.setEnabled(true);
+            btnAbout.setEnabled(true);
+            btnLogout.setEnabled(true);
+
+        } else if (role.equalsIgnoreCase("Kasir")) {
+            btnProduk.setEnabled(false);
+            btnSupplier.setEnabled(false);
+            btnReport.setEnabled(false);
+
+            btnTransaksi.setEnabled(true);
+            btnAbout.setEnabled(true);
+            btnLogout.setEnabled(true);
+
+            btnProduk.setToolTipText("Menu ini hanya dapat diakses oleh Admin");
+            btnSupplier.setToolTipText("Menu ini hanya dapat diakses oleh Admin");
+            btnReport.setToolTipText("Menu ini hanya dapat diakses oleh Admin");
+
+        } else {
+            btnProduk.setEnabled(false);
+            btnSupplier.setEnabled(false);
+            btnTransaksi.setEnabled(false);
+            btnReport.setEnabled(false);
+            btnAbout.setEnabled(true);
+            btnLogout.setEnabled(true);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,6 +122,11 @@ public class MainFrame extends javax.swing.JFrame {
         btnAbout.setText("About Us");
         btnAbout.setMaximumSize(new java.awt.Dimension(170, 45));
         btnAbout.setMinimumSize(new java.awt.Dimension(160, 40));
+        btnAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAboutActionPerformed(evt);
+            }
+        });
 
         btnSupplier.setText("Data Suplier");
         btnSupplier.setMaximumSize(new java.awt.Dimension(170, 45));
@@ -203,6 +247,12 @@ public class MainFrame extends javax.swing.JFrame {
         ReportFrame reportFrame = new ReportFrame();
         reportFrame.setVisible(true);
     }//GEN-LAST:event_btnReportActionPerformed
+
+    private void btnAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAboutActionPerformed
+        // TODO add your handling code here:
+        AboutFrame aboutFrame = new AboutFrame();
+        aboutFrame.setVisible(true);
+    }//GEN-LAST:event_btnAboutActionPerformed
 
     /**
      * @param args the command line arguments
